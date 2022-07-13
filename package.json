@@ -2,7 +2,7 @@
   "name": "lizentory-api",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js", 
+  "main": "dist/index.js",
   "scripts": {
     "build": "npm-run-all clean lint tsc copy-assets",
     "clean": "rimraf dist/*",
@@ -18,11 +18,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@okta/oidc-middleware": "^4.5.1",
+    "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "express-session": "^1.17.3"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.5",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.0.3",
     "@types/shelljs": "^0.8.11",
