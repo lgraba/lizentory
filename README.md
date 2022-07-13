@@ -22,8 +22,8 @@ And then navigate to http://localhost:8080 !
 ## ToDo
 
 1. Database Configuration (PostgreSQL)
-2. Implement GET /lizards endpoint
+2. ORM (Sequelize, Prisma, TypeORM?)
 3. Implement POST /lizards endpoint
-3. Authorization with Okta
-  1. Middleware?
 4. Auto-documentation (Swagger?)
+5. Dockerize + docker-compose.yml
+6. Get rid of EJS in favor of VueJS because EJS sucks

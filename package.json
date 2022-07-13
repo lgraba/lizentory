@@ -10,6 +10,9 @@
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "dev:start": "npm-run-all build start",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "migrate:make": "knex migrate:make",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
     "start": "node .",
     "test": "echo \"Error: NEED TESTS\" && exit 1",
     "tsc": "tsc"
@@ -22,7 +25,10 @@
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "express-session": "^1.17.3"
+    "express-session": "^1.17.3",
+    "knex": "^2.1.0",
+    "pg": "^8.7.3",
+    "pg-promise": "^10.11.1"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -30,6 +36,7 @@
     "@types/express-session": "^1.17.5",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.0.3",
+    "@types/pg": "^8.6.5",
     "@types/shelljs": "^0.8.11",
     "fs-extra": "^10.1.0",
     "nodemon": "^2.0.19",
