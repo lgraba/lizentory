@@ -1,9 +1,17 @@
-import { Knex } from 'knex'
+// tslint:disable-next-line:no-var-requires
+const { Sequelize, DataTypes } = require('sequelize')
 
 // tslint:disable-next-line:no-var-requires
-const connection = require('../database/knexfile')
-// tslint:disable-next-line:no-var-requires
-const pg: Knex = require('knex')(connection)
+const config = require('../database/knexfile')
+const sequelize = new Sequelize(
+  config.connection.database,
+  config.connection.user,
+  config.connection.password,
+  {
+    dialect: 'postgres',
+    host: config.connection.host
+  }
+)
 
 interface User {
   id: number,
@@ -14,29 +22,47 @@ interface User {
   updated_at: Date
 }
 
-export const createUser = ( userInfo: any )  => {
-  const oktaId = userInfo.sub
+// User model
+const User = sequelize.define('user', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
+  },
+  okta_id: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  description: DataTypes.STRING,
+}, {
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
+})
 
-  // Get user based on okta_id
-  pg<User>('users').where('okta_id', oktaId).first()
-    .then( ( user ) => {
+export async function createUser( userInfo: any ) {
 
-      if (user) {
-        return user
-      } else {
-        // Not found; Create new user record
-        pg<User>('users').insert({
-          okta_id: userInfo.sub,
-          email: userInfo.preferred_username,
-          description: null,
-          created_at: new Date()
-        }).then( ( result ) => {
-          return result
-        })
-      }
+  const user = User.build({
+    okta_id: userInfo.sub,
+    email: userInfo.preferred_username,
+    description: null,
+  })
 
-    }).catch( ( e ) => {
-      // ToDo: Implement logging
-      console.log('Error: ', e)
-    })
+  try {
+    await user.save()
+  } catch (error) {
+    // ToDo: Implement coherent logging package
+    console.log(`Problem saving user: ${error}`)
+  }
+
+  return user
+}
+
+module.exports = {
+  createUser
 }
