@@ -22,8 +22,7 @@ And then navigate to http://localhost:8080 !
 ## ToDo
 
 1. Database Configuration (PostgreSQL)
-2. ORM (Sequelize, Prisma, TypeORM?)
-3. Implement POST /lizards endpoint
-4. Auto-documentation (Swagger?)
-5. Dockerize + docker-compose.yml
-6. Get rid of EJS in favor of VueJS because EJS sucks
+2. Implement POST /lizards endpoint
+3. Auto-documentation (Swagger?)
+4. Dockerize + docker-compose.yml
+5. Get rid of EJS in favor of VueJS because EJS sucks
