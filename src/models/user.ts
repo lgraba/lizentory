@@ -38,7 +38,10 @@ const User = sequelize.define('user', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  description: DataTypes.STRING,
+  description: {
+    type: DataTypes.STRING,
+    defaultValue: null
+  }
 }, {
   timestamps: true,
   createdAt: 'created_at',
@@ -46,23 +49,31 @@ const User = sequelize.define('user', {
 })
 
 export async function createUser( userInfo: any ) {
-
-  const user = User.build({
-    okta_id: userInfo.sub,
-    email: userInfo.preferred_username,
-    description: null,
-  })
-
   try {
-    await user.save()
+    return await User.findOrCreate({
+      where: {
+        okta_id: userInfo.sub,
+        email: userInfo.preferred_username
+      }, defaults: {
+        description: 'A brand new user! Wow'
+      }
+    })
   } catch (error) {
     // ToDo: Implement coherent logging package
     console.log(`Problem saving user: ${error}`)
   }
+}
 
-  return user
+export async function getUser( userInfo: any ) {
+  try {
+    return await User.findByPk(userInfo.id)
+  } catch (error) {
+    console.log(`Problem getting user: ${error}`)
+    return {error}
+  }
 }
 
 module.exports = {
-  createUser
+  createUser,
+  getUser
 }

@@ -9,20 +9,15 @@ This is a TS Express-based API application meant for exploration and learning.
 ## Getting started
 
 ```
-> cp local.env .env
-> cp local.okta.env .okta.env
+> docker compose up
 ```
-Fill out your environment variables in these two files. You can sign up for an [Okta developer account](https://www.okta.com/developer/signup).
+This will start up the web and postgres services. Go ahead and navigate to http://localhost:8080 !
 
-```
-> npm run dev
-```
-And then navigate to http://localhost:8080 !
+This application utilizes Okta authentication. You can sign up for an [Okta developer account](https://www.okta.com/developer/signup).
 
 ## ToDo
 
-1. Database Configuration (PostgreSQL)
-2. Implement POST /lizards endpoint
+1. Create lizards model
+2. Implement /lizards endpoints
 3. Auto-documentation (Swagger?)
-4. Dockerize + docker-compose.yml
-5. Get rid of EJS in favor of VueJS because EJS sucks
+4. Get rid of EJS in favor of VueJS because EJS sucks

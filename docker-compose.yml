@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+
+  web:
+    build: .
+    command: sh -c "npm run migrate-and-seed && npm run dev"
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/code
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+      
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres

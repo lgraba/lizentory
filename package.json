@@ -13,6 +13,8 @@
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
+    "migrate-and-seed": "npm-run-all migrate seed",
+    "seed": "knex seed:run",
     "start": "node .",
     "test": "echo \"Error: NEED TESTS\" && exit 1",
     "tsc": "tsc"

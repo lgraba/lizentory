@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { createUser } from '../models/user'
+import { createUser, getUser } from '../models/user'
 
 // ToDo: Create some sort of authentication-addition middleware
 //  that updates user info accordingly upon authentication insertion points
@@ -31,12 +31,16 @@ export const register = ( app: express.Application ) => {
     res.redirect('/')
   })
 
-  // Lizards (secured)
+  // Lizards GET (secured)
   app.get('/lizards', oidc.ensureAuthenticated(), ( req: any, res ) => {
     const user = req.userContext ? req.userContext.userinfo : null
     if (user) {
       createUser(user)
     }
+
+    // Need to get some lizards via model function
+    // const lizards = getLizards()
+
     res.render('lizards', { isAuthenticated: req.isAuthenticated(), user })
   })
 
@@ -49,9 +53,9 @@ export const register = ( app: express.Application ) => {
     res.render('lizards', { isAuthenticated: req.isAuthenticated(), user })
   })
 
-  // Hello!
-  app.get('/hello/:name', ( req, res ) => {
-    const name = req.params.name
-    res.send(`Hello, ${name}}!!`)
+  // Users GET
+  app.get('/users/:id', async ( req, res ) => {
+    const user = await getUser({id: Number(req.params.id)})
+    res.json({data: user})
   })
 }
