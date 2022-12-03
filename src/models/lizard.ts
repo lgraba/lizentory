@@ -1,6 +1,8 @@
 // tslint:disable-next-line:no-var-requires
 const { Sequelize, DataTypes } = require('sequelize')
+import User from './user'
 
+// ToDo: Initialize sequelize somewhere else and utilize across all models
 // tslint:disable-next-line:no-var-requires
 const config = require('../database/knexfile')
 const sequelize = new Sequelize(
@@ -13,34 +15,41 @@ const sequelize = new Sequelize(
   }
 )
 
-interface User {
+interface Lizard {
   id: number,
-  okta_id: string,
-  email: string,
+  name: string,
+  variety: string,
   description: string,
   created_at: Date,
   updated_at: Date
 }
 
-// User model
-const User = sequelize.define('user', {
+// Lizard model
+const Lizard = sequelize.define('lizard', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  okta_id: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  email: {
+  variety: {
     type: DataTypes.STRING,
     allowNull: false
   },
   description: {
     type: DataTypes.STRING,
     defaultValue: null
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'id'
+    }
   }
 }, {
   timestamps: true,
@@ -48,4 +57,4 @@ const User = sequelize.define('user', {
   updatedAt: 'updated_at'
 })
 
-export default User
+export default Lizard

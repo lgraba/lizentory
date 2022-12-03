@@ -17,6 +17,22 @@ app.set('view engine', 'ejs')
 sessionAuth.register(app)
 routes.register(app)
 
+// Todo: Separate resource routes into separate files and reigster here:
+// Put above:
+// var routes = require('./routes/index')
+// var users  = require('./routes/users')
+//
+// app.use('/', routes)
+// app.use('/users', users)
+// app.use('/lizards', lizards)
+
+// Todo: 404 Handling
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  // err.status = 404;
+  next(err);
+})
+
 app.listen(port, () => {
   // tslint:disable-next-line:no-console
   console.log(`Server started at http://localhost:${port}`) // template literal uses variable interpolation

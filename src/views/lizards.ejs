@@ -15,6 +15,16 @@
   <div class="container">
     <h1 class="header">Lizard Inventory</h1>
     <p>A whole lotta lot lizards!</p>
+
+    <div class="lizards-list">
+      <ul>
+        <% if (lizards) { %>
+          <% lizards.forEach((lizard) => { %>
+              <li>Name: <%= lizard.name %>, Variety: <%= lizard.variety %>, Description: <%= lizard.description %></li>
+          <% }); %>
+        <% } %>
+      </ul>
+    </div>
   </div>
 </body>
 

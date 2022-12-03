@@ -21,3 +21,6 @@ This application utilizes Okta authentication. You can sign up for an [Okta deve
 2. Implement /lizards endpoints
 3. Auto-documentation (Swagger?)
 4. Get rid of EJS in favor of VueJS because EJS sucks
+5. Utilize TS for migrations, seeds, base knexfile?
+6. Figure out models/index.ts importing and exporting pattern
+7. Remove all requires and replace with importants? es6 recommended linting pattern
